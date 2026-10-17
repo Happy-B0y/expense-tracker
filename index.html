@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f6fa">
+<meta name="description" content="记账本 — 记录每一笔支出，看清钱花在哪">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%234a63e8'/%3E%3Ctext x='16' y='23' font-size='17' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3E%C2%A5%3C/text%3E%3C/svg%3E">
+<title>记账本</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="app">
+
+  <!-- ========== 顶部总览 ========== -->
+  <header class="hero">
+    <div class="hero-head">
+      <span class="hero-label">本月支出</span>
+      <div class="month-switch">
+        <button class="month-btn" id="prevMonth" type="button" aria-label="上个月">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="month-text" id="monthText">—</span>
+        <button class="month-btn" id="nextMonth" type="button" aria-label="下个月">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <p class="hero-amount" id="monthTotal">¥0.00</p>
+
+    <div class="hero-sub">
+      <span id="todayTotal">今日 ¥0.00</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span id="monthCount">0 笔</span>
+    </div>
+  </header>
+
+  <!-- ========== 记一笔 ========== -->
+  <section class="card">
+    <h2 class="card-title">记一笔</h2>
+
+    <form id="addForm" novalidate>
+      <div class="amount-row" id="amountRow">
+        <span class="currency" aria-hidden="true">¥</span>
+        <input id="amountInput" class="amount-input" type="text" inputmode="decimal"
+               placeholder="0.00" autocomplete="off" maxlength="12" aria-label="金额">
+      </div>
+
+      <div class="chips" id="categoryChips" role="radiogroup" aria-label="选择分类"></div>
+
+      <input id="noteInput" class="note-input" type="text" placeholder="备注（可不填），比如：午饭" maxlength="40" autocomplete="off">
+
+      <div class="date-row">
+        <label class="date-label" for="dateInput">日期</label>
+        <input id="dateInput" class="date-input" type="date">
+      </div>
+
+      <p class="hint" id="addHint" role="alert"></p>
+      <button class="btn-primary" type="submit">记一笔</button>
+    </form>
+  </section>
+
+  <!-- ========== 分类占比 ========== -->
+  <section class="card" id="statsCard">
+    <h2 class="card-title">本月分类</h2>
+    <div class="bars" id="bars"></div>
+    <p class="muted" id="statsEmpty" hidden>本月还没有记录</p>
+  </section>
+
+  <!-- ========== 明细 ========== -->
+  <section class="card">
+    <h2 class="card-title">明细</h2>
+    <div id="list"></div>
+    <div class="empty" id="emptyState" hidden>
+      <div class="empty-emoji" aria-hidden="true">🧾</div>
+      <p class="empty-title">这个月还没有记账</p>
+      <p class="empty-sub">在上面记第一笔吧</p>
+    </div>
+  </section>
+
+  <p class="foot-note">数据保存在当前浏览器本地</p>
+</main>
+
+<!-- 删除撤销提示 -->
+<div class="toast" id="toast" role="status" hidden>
+  <span class="toast-text" id="toastText"></span>
+  <button class="toast-action" id="toastAction" type="button">撤销</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

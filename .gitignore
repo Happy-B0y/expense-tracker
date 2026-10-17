@@ -1,0 +1,15 @@
+# 系统与编辑器文件
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 依赖与构建产物（本项目当前不需要，留作以后备用）
+node_modules/
+dist/
+build/
+
+# 日志
+*.log
+npm-debug.log*
